@@ -1,0 +1,147 @@
+@startuml archi-diagram-v6
+
+' Layers
+package "API Layer" {
+    class PropertyController
+    class InvestmentController
+    class UserController
+    class WalletController
+}
+
+package "Microservices" {
+    package "Property Service" {
+        class PropertyService {
+            + listOpenForFunding(): List<Property>
+            + listAllProperties(userRole: String): List<Property>
+            + distributeRentalIncome(): void
+        }
+        class PropertyRepository
+        class Property {
+          - id: UUID
+          - name: String
+          - type: String
+          - price: double
+          - fundingDeadline: Date
+          - fundingStatus: String
+          + calculateRentalIncome(): double
+          + calculateAppreciation(): double
+          + transitionState(newState: String): void
+          + checkFundingDeadline(): boolean
+          + isFullyFunded(): boolean
+        }
+    }
+
+    package "Investment Service" {
+        class InvestmentService {
+            + allocateInvestment(user: User, property: Property, amount: double): boolean
+            + listInvestmentsByUser(userId: UUID): List<Investment>
+        }
+        class InvestmentRepository
+        class Investment {
+          - id: UUID
+          - property: Property
+          - user: User
+          - sharePercentage: double
+          - investmentAmount: double
+          + calculateReturns(): double
+          + refundToWallet(wallet: Wallet): void
+          + validateInvestment(): boolean
+        }
+    }
+
+    package "User Service" {
+        class UserService {
+            + validateRole(user: User, requiredRole: String): boolean
+        }
+        class UserRepository
+        class User {
+          - id: UUID
+          - name: String
+          - email: String
+          - wallet: Wallet
+          - role: String "agent | investor"
+          + register(): void
+          + login(): void
+          + updateProfile(): void
+        }
+    }
+
+    package "Wallet Service" {
+        class WalletService {
+            + credit(amount: double): void
+            + debit(amount: double): void
+            + getBalance(): double
+            + refundInvestment(investmentId: UUID): void
+            + listTransactions(userId: UUID): List<Transaction>
+        }
+        class WalletRepository
+        class Wallet {
+          - id: UUID
+          - balance: double
+          + transfer(amount: double, targetWallet: Wallet): void
+        }
+    }
+
+    package "Notification Service" {
+        class NotificationService {
+            + notifyFundingCompletion(property: Property): void
+            + notifyRentalIncome(user: User, amount: double): void
+            + notifyProfileUpdate(user: User): void
+        }
+        class EmailService
+    }
+
+    package "Payment Service" {
+        class PaymentGateway
+        class StripePaymentGateway
+    }
+
+    package "Certificate Service" {
+        class CertificateService
+        class CertificateRepository
+        class Certificate {
+          - id: UUID
+          - property: Property
+          - user: User
+          - issuedDate: Date
+        }
+    }
+}
+
+' Relationships
+PropertyController --> PropertyService
+UserController --> UserService
+InvestmentController --> InvestmentService
+WalletController --> WalletService
+
+PropertyService --> PropertyRepository
+InvestmentService --> InvestmentRepository
+InvestmentService --> PropertyService
+UserService --> UserRepository
+WalletService --> WalletRepository
+CertificateService --> CertificateRepository
+NotificationService --> EmailService
+NotificationService --> PaymentGateway
+
+Property "1" -- "*" Investment
+User "1" -- "*" Investment
+User "1" -- "1" Wallet
+Investment "1" -- "1" Certificate
+Property "1" -- "*" Certificate
+
+' Domain-Specific Enhancements
+PropertyService --> NotificationService : notifyFundingCompletion()
+PropertyService --> InvestmentService
+PropertyService --> WalletService : distributeRentalIncome()
+WalletService --> PaymentGateway : processPayment()
+WalletService --> InvestmentService : fundInvestment()
+NotificationService --> EmailService : sendNotification()
+InvestmentService --> User : validateInvestmentLimits(user, amount)
+WalletService --> Wallet : refundInvestment(investmentId)
+PropertyService --> CertificateService : generateCertificate(user, property)
+
+' Role validation
+UserService --> PropertyService : validateRole(user, requiredRole)
+UserService --> InvestmentService : validateRole(user, requiredRole)
+
+@enduml
