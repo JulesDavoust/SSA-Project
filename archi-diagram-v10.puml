@@ -151,26 +151,35 @@ PropertyService --> PropertyRepository
 PropertyService --> PropertyCalculationStrategy
 PropertyService --> PropertyStateTransition
 InvestmentService --> InvestmentRepository
-InvestmentService --> PropertyService
+InvestmentService --> PropertyService : fetchPropertyDetails()
+InvestmentService --> UserService : validateInvestor()
 InvestmentService --> CertificateGenerator : issueCertificate()
-InvestmentService --> NotificationChannel : notifyFunding()
-UserService --> UserRepository
-WalletService --> WalletRepository
-WalletService --> TransactionManagement : manageTransactions()
+InvestmentService --> NotificationChannel : notifyFundingCompletion()
 
+UserService --> UserRepository
+UserService --> WalletService : manageWallet()
+UserService --> InvestmentService : validateInvestmentLimits()
+
+WalletService --> WalletRepository
+WalletService --> TransactionManagement : listTransactions()
 WalletService --> NotificationChannel : notifyTransaction()
+WalletService --> PaymentGateway : processPayment()
 
 FundingNotificationService --> NotificationChannel
 IncomeNotificationService --> NotificationChannel
+PropertyService --> IncomeNotificationService : notifyRentalIncome()
 
-WalletService --> PaymentGateway : processPayment()
-WalletService --> InvestmentService : fundInvestment()
-InvestmentService --> InvestmentValidation : validateInvestment(investment)
-WalletService --> Wallet : refundInvestment(investmentId)
-PropertyService --> CertificateGenerator : generateCertificate(user, property)
+StripePaymentGateway --> PaymentGateway
 
-' Role validation
-UserService --> PropertyService : validateRole(user, requiredRole)
-UserService --> InvestmentService : validateRole(user, requiredRole)
+DefaultCertificateGenerator --> CertificateGenerator
+DefaultCertificateGenerator --> CertificateRepository
+Certificate --> Property
+Certificate --> User
+
+Investment --> Property
+Investment --> User
+
+User --> Wallet
+Wallet --> Transaction
 
 @enduml
