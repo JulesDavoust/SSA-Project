@@ -1,4 +1,4 @@
-@startuml archi-diagram-v10
+@startuml archi-diagram-v12
 
 ' Layers
 package "API Layer" {
@@ -136,41 +136,45 @@ package "Microservices" {
 
 ' Relationships
 PropertyController --> PropertyService
-UserController --> UserService
 InvestmentController --> InvestmentService
+UserController --> UserService
 WalletController --> WalletService
 
-PropertyRepository --> Property
-InvestmentRepository --> Investment
-CertificateRepository --> Certificate
-
-Property --> PropertyStateTransition
-Investment --> InvestmentValidation
-
 PropertyService --> PropertyRepository
-PropertyService --> PropertyCalculationStrategy
-PropertyService --> PropertyStateTransition
-InvestmentService --> InvestmentRepository
-InvestmentService --> PropertyService
-InvestmentService --> CertificateGenerator : issueCertificate()
-InvestmentService --> NotificationChannel : notifyFunding()
-UserService --> UserRepository
-WalletService --> WalletRepository
-WalletService --> TransactionManagement : manageTransactions()
+PropertyService --> DefaultPropertyCalculationStrategy
+PropertyService --> DefaultPropertyStateTransition
+PropertyService --> InvestmentService
 
-WalletService --> NotificationChannel : notifyTransaction()
+InvestmentService --> InvestmentRepository
+InvestmentService --> DefaultInvestmentValidation
+InvestmentService --> WalletService
+InvestmentService --> PropertyService
+InvestmentService --> FundingNotificationService
+
+UserService --> UserRepository
+UserService --> WalletService
+
+WalletService --> WalletRepository
+WalletService --> TransactionService
+WalletService --> StripePaymentGateway
+
+TransactionService --> Transaction
 
 FundingNotificationService --> NotificationChannel
 IncomeNotificationService --> NotificationChannel
+PropertyService --> IncomeNotificationService
 
-WalletService --> PaymentGateway : processPayment()
-WalletService --> InvestmentService : fundInvestment()
-InvestmentService --> InvestmentValidation : validateInvestment(investment)
-WalletService --> Wallet : refundInvestment(investmentId)
-PropertyService --> CertificateGenerator : generateCertificate(user, property)
+StripePaymentGateway --> PaymentGateway
 
-' Role validation
-UserService --> PropertyService : validateRole(user, requiredRole)
-UserService --> InvestmentService : validateRole(user, requiredRole)
+DefaultCertificateGenerator --> CertificateGenerator
+DefaultCertificateGenerator --> CertificateRepository
+Certificate --> Property
+Certificate --> User
+
+Investment --> Property
+Investment --> User
+
+User --> Wallet
+Wallet --> Transaction
 
 @enduml
