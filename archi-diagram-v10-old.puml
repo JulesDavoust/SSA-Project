@@ -6,11 +6,6 @@ package "API Layer" {
     class InvestmentController
     class UserController
     class WalletController
-    /' interface IInvestmentService {
-        + allocateInvestment(user: User, property: Property, amount: double): boolean
-        + listInvestmentsByUser(userId: UUID): List<Investment>
-        + validateInvestmentLimits(user: User, amount: double): boolean
-    } '/
 }
 
 package "Microservices" {
@@ -45,7 +40,7 @@ package "Microservices" {
     }
 
     package "Investment Service" {
-        class InvestmentService {/'  implements IInvestmentService '/
+        class InvestmentService {
             + allocateInvestment(user: User, property: Property, amount: double): boolean
             + listInvestmentsByUser(userId: UUID): List<Investment>
             + validateInvestmentLimits(user: User, amount: double): boolean
@@ -86,6 +81,10 @@ package "Microservices" {
     }
 
     package "Wallet Service" {
+        interface TransactionManagement {
+            + listTransactions(userId: UUID): List<Transaction>
+        }
+        class TransactionService implements TransactionManagement
         class WalletService {
             + credit(amount: double): void
             + debit(amount: double): void
@@ -97,13 +96,6 @@ package "Microservices" {
           - balance: double
           + transfer(amount: double, targetWallet: Wallet): void
         }
-    }
-
-    package "Transaction Service" {
-        interface TransactionManagement {
-            + listTransactions(userId: UUID): List<Transaction>
-        }
-        class TransactionService implements TransactionManagement
         class Transaction {
           - id: UUID
           - type: String "credit | debit"
@@ -159,35 +151,26 @@ PropertyService --> PropertyRepository
 PropertyService --> PropertyCalculationStrategy
 PropertyService --> PropertyStateTransition
 InvestmentService --> InvestmentRepository
-InvestmentService --> PropertyService : fetchPropertyDetails()
-InvestmentService --> UserService : validateInvestor()
+InvestmentService --> PropertyService
 InvestmentService --> CertificateGenerator : issueCertificate()
-InvestmentService --> NotificationChannel : notifyFundingCompletion()
-
+InvestmentService --> NotificationChannel : notifyFunding()
 UserService --> UserRepository
-UserService --> WalletService : manageWallet()
-UserService --> InvestmentService : validateInvestmentLimits()
-
 WalletService --> WalletRepository
-WalletService --> TransactionManagement : listTransactions()
+WalletService --> TransactionManagement : manageTransactions()
+
 WalletService --> NotificationChannel : notifyTransaction()
-WalletService --> PaymentGateway : processPayment()
 
 FundingNotificationService --> NotificationChannel
 IncomeNotificationService --> NotificationChannel
-PropertyService --> IncomeNotificationService : notifyRentalIncome()
 
-StripePaymentGateway --> PaymentGateway
+WalletService --> PaymentGateway : processPayment()
+WalletService --> InvestmentService : fundInvestment()
+InvestmentService --> InvestmentValidation : validateInvestment(investment)
+WalletService --> Wallet : refundInvestment(investmentId)
+PropertyService --> CertificateGenerator : generateCertificate(user, property)
 
-DefaultCertificateGenerator --> CertificateGenerator
-DefaultCertificateGenerator --> CertificateRepository
-Certificate --> Property
-Certificate --> User
-
-Investment --> Property
-Investment --> User
-
-User --> Wallet
-Wallet --> Transaction
+' Role validation
+UserService --> PropertyService : validateRole(user, requiredRole)
+UserService --> InvestmentService : validateRole(user, requiredRole)
 
 @enduml
