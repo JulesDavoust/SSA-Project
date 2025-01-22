@@ -1,0 +1,178 @@
+@startuml archi-diagram-v10
+
+' Layers
+package "API Layer" {
+    class PropertyController
+    class InvestmentController
+    class UserController
+    class WalletController
+}
+
+package "Microservices" {
+    package "Property Service" {
+        class PropertyService {
+            + listOpenForFunding(): List<Property>
+            + listAllProperties(userRole: String): List<Property>
+            + distributeRentalIncome(): void
+        }
+        class PropertyRepository
+        interface PropertyCalculationStrategy {
+            + calculateRentalIncome(): double
+            + calculateAppreciation(): double
+        }
+        class DefaultPropertyCalculationStrategy implements PropertyCalculationStrategy
+        interface PropertyStateTransition {
+            + transitionState(newState: String): void
+            + checkFundingDeadline(): boolean
+            + isFullyFunded(): boolean
+        }
+        class DefaultPropertyStateTransition implements PropertyStateTransition
+        class Property {
+          - id: UUID
+          - name: String
+          - type: String
+          - price: double
+          - fundingDeadline: Date
+          - fundingStatus: String
+          + PropertyCalculationStrategy finance
+          + PropertyStateTransition state
+        }
+    }
+
+    package "Investment Service" {
+        class InvestmentService {
+            + allocateInvestment(user: User, property: Property, amount: double): boolean
+            + listInvestmentsByUser(userId: UUID): List<Investment>
+            + validateInvestmentLimits(user: User, amount: double): boolean
+        }
+        class InvestmentRepository
+        interface InvestmentValidation {
+            + validateInvestment(investment: Investment): boolean
+        }
+        class DefaultInvestmentValidation implements InvestmentValidation
+        class Investment {
+          - id: UUID
+          - property: Property
+          - user: User
+          - sharePercentage: double
+          - investmentAmount: double
+          + calculateReturns(): double
+          + refundToWallet(wallet: Wallet): void
+          + validateInvestment(): boolean
+        }
+    }
+
+    package "User Service" {
+        class UserService {
+            + validateRole(user: User, requiredRole: String): boolean
+            + validateAnnualInvestmentLimit(user: User, amount: double): boolean
+        }
+        class UserRepository
+        class User {
+          - id: UUID
+          - name: String
+          - email: String
+          - wallet: Wallet
+          - role: String "agent | investor"
+          + register(): void
+          + login(): void
+          + updateProfile(): void
+        }
+    }
+
+    package "Wallet Service" {
+        interface TransactionManagement {
+            + listTransactions(userId: UUID): List<Transaction>
+        }
+        class TransactionService implements TransactionManagement
+        class WalletService {
+            + credit(amount: double): void
+            + debit(amount: double): void
+            + refundInvestment(investmentId: UUID): void
+        }
+        class WalletRepository
+        class Wallet {
+          - id: UUID
+          - balance: double
+          + transfer(amount: double, targetWallet: Wallet): void
+        }
+        class Transaction {
+          - id: UUID
+          - type: String "credit | debit"
+          - amount: double
+          - date: Date
+        }
+    }
+
+    package "Notification Service" {
+        interface NotificationChannel {
+            + sendNotification(recipient: User, message: String): void
+        }
+        class FundingNotificationService implements NotificationChannel
+        class IncomeNotificationService implements NotificationChannel
+    }
+
+    package "Payment Service" {
+        interface PaymentGateway {
+            + processPayment(amount: double): void
+        }
+        class StripePaymentGateway implements PaymentGateway
+    }
+
+    package "Certificate Service" {
+        interface CertificateGenerator {
+            + generateCertificate(user: User, property: Property): void
+        }
+        class DefaultCertificateGenerator implements CertificateGenerator
+        class CertificateRepository
+        class Certificate {
+          - id: UUID
+          - property: Property
+          - user: User
+          - issuedDate: Date
+        }
+    }
+}
+
+' Relationships
+PropertyController --> PropertyService
+UserController --> UserService
+InvestmentController --> InvestmentService
+WalletController --> WalletService
+
+PropertyRepository --> Property
+InvestmentRepository --> Investment
+CertificateRepository --> Certificate
+
+Property --> PropertyStateTransition
+Investment --> InvestmentValidation
+
+PropertyService --> PropertyRepository
+PropertyService --> PropertyCalculationStrategy
+PropertyService --> PropertyStateTransition
+InvestmentService --> InvestmentRepository
+InvestmentService --> PropertyService
+InvestmentService --> CertificateGenerator : issueCertificate()
+InvestmentService --> NotificationChannel : notifyFunding()
+UserService --> UserRepository
+WalletService --> WalletRepository
+CertificateService --> CertificateRepository
+WalletService --> TransactionManagement : manageTransactions()
+
+CertificateService --> NotificationChannel : notifyCertificateIssued()
+WalletService --> NotificationChannel : notifyTransaction()
+
+FundingNotificationService --> NotificationChannel
+IncomeNotificationService --> NotificationChannel
+
+WalletService --> PaymentGateway : processPayment()
+WalletService --> InvestmentService : fundInvestment()
+InvestmentService --> InvestmentValidation : validateInvestment(investment)
+WalletService --> Wallet : refundInvestment(investmentId)
+PropertyService --> CertificateGenerator : generateCertificate(user, property)
+
+' Role validation
+UserService --> PropertyService : validateRole(user, requiredRole)
+UserService --> InvestmentService : validateRole(user, requiredRole)
+
+@enduml
