@@ -1,0 +1,6 @@
+com\project\ssaapplication\services\PropertyService.class
+com\project\ssaapplication\controllers\PropertyController.class
+com\project\ssaapplication\DataLoader.class
+com\project\ssaapplication\models\Property.class
+com\project\ssaapplication\repositories\PropertyRepository.class
+com\project\ssaapplication\PropertyServiceApplication.class
