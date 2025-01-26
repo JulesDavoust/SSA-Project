@@ -1,1 +1,6 @@
+com\project\ssaapplication\services\WalletService.class
+com\project\ssaapplication\DataLoader.class
+com\project\ssaapplication\models\Wallet.class
+com\project\ssaapplication\repositories\WalletRepository.class
 com\project\ssaapplication\WalletServiceApplication.class
+com\project\ssaapplication\controllers\WalletController.class
