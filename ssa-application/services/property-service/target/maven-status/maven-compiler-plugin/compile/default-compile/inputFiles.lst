@@ -1,6 +1,10 @@
+C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\strategies\DefaultPropertyCalculationStrategy.java
+C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\transitions\DefaultPropertyStateTransition.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\repositories\PropertyRepository.java
+C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\transitions\PropertyStateTransition.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\PropertyServiceApplication.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\models\Property.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\DataLoader.java
+C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\strategies\PropertyCalculationStrategy.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\controllers\PropertyController.java
 C:\Users\Jules\Desktop\Scolaire\M2\S1\Software_Factory\Software systems architectures\SSA-Project\ssa-application\services\property-service\src\main\java\com\project\ssaapplication\services\PropertyService.java

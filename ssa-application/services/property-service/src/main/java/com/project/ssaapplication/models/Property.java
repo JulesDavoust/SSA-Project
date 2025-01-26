@@ -2,37 +2,48 @@ package com.project.ssaapplication.models;
 
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 public class Property {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
     private String name;
-    private String type; // Apartment, Building, etc.
+
+    private String type;
+
     private double price;
+
+    @Temporal(TemporalType.DATE)
     private Date fundingDeadline;
-    private String fundingStatus; // OPEN, FUNDED, CLOSED, etc.
+
+    private String fundingStatus;
+
+    private double rentalIncomePercentage;
+
+    private double appreciationPercentage;
 
     public Property() {
     }
 
-    public Property(String name, String type, double price, Date fundingDeadline, String fundingStatus) {
+    public Property(String name, String type, double price, Date fundingDeadline, String fundingStatus, double rentalIncomePercentage, double appreciationPercentage) {
         this.name = name;
         this.type = type;
         this.price = price;
         this.fundingDeadline = fundingDeadline;
         this.fundingStatus = fundingStatus;
+        this.rentalIncomePercentage = rentalIncomePercentage;
+        this.appreciationPercentage = appreciationPercentage;
     }
 
-    // Getters and setters
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -74,5 +85,21 @@ public class Property {
 
     public void setFundingStatus(String fundingStatus) {
         this.fundingStatus = fundingStatus;
+    }
+
+    public double getRentalIncomePercentage() {
+        return rentalIncomePercentage;
+    }
+
+    public void setRentalIncomePercentage(double rentalIncomePercentage) {
+        this.rentalIncomePercentage = rentalIncomePercentage;
+    }
+
+    public double getAppreciationPercentage() {
+        return appreciationPercentage;
+    }
+
+    public void setAppreciationPercentage(double appreciationPercentage) {
+        this.appreciationPercentage = appreciationPercentage;
     }
 }

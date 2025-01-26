@@ -1,6 +1,10 @@
+com\project\ssaapplication\transitions\DefaultPropertyStateTransition.class
 com\project\ssaapplication\services\PropertyService.class
 com\project\ssaapplication\controllers\PropertyController.class
+com\project\ssaapplication\transitions\PropertyStateTransition.class
+com\project\ssaapplication\strategies\DefaultPropertyCalculationStrategy.class
 com\project\ssaapplication\DataLoader.class
 com\project\ssaapplication\models\Property.class
+com\project\ssaapplication\strategies\PropertyCalculationStrategy.class
 com\project\ssaapplication\repositories\PropertyRepository.class
 com\project\ssaapplication\PropertyServiceApplication.class
