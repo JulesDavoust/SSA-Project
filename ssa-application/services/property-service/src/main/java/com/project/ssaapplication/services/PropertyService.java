@@ -74,7 +74,7 @@ public class PropertyService {
                 .orElseThrow(() -> new RuntimeException("Property not found"));
         boolean fullyFunded = stateTransition.isFullyFunded(fundedAmount, property.getPrice());
         boolean fundingExpired = stateTransition.checkFundingDeadline(new Date().getTime(), property.getFundingDeadline().getTime());
-        String newState = stateTransition.transitionState(property.getFundingStatus(), fullyFunded, fundingExpired);
+        String newState = stateTransition.transitionState(property.getFundingStatus(), fullyFunded, fundingExpired, fundedAmount);
         property.setFundingStatus(newState);
         propertyRepository.save(property);
         return newState;
