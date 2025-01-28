@@ -5,6 +5,7 @@ import com.project.ssaapplication.repositories.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,10 @@ public class WalletService {
     public Wallet getWallet(UUID walletId) {
         return walletRepository.findById(walletId)
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
+    }
+
+    public List<Wallet> getWallets() {
+        return walletRepository.findAll();
     }
 
     public void creditWallet(UUID walletId, double amount) {

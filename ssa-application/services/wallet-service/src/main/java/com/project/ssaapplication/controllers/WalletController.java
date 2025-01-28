@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,6 +19,11 @@ public class WalletController {
     @GetMapping("/{id}")
     public ResponseEntity<Wallet> getWallet(@PathVariable UUID id) {
         return ResponseEntity.ok(walletService.getWallet(id));
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<List<Wallet>> getWallets() {
+        return ResponseEntity.ok(walletService.getWallets());
     }
 
     @PostMapping("/{id}/credit")
