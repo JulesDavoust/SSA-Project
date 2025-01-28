@@ -3,6 +3,18 @@
 Welcome to the **Real Estate Fractional Ownership System** project! This system allows users to invest in fractional property ownership, manage wallets, and receive notifications for important events like property funding and rental income.
 
 ---
+## **Introduction**:
+
+This project was developed by a team of two students, Vadim Bernard and Jules Davoust. Due to the reduced team size, the implementation focuses on showcasing architectural choices and deeply implementing four core services: Wallet, Property, Notification, and Investment. These services were selected to highlight the essential functionality of the system while adhering to the project's scope and requirements.
+
+The remaining microservices mentioned in the architecture diagram are not implemented but are included in the design to illustrate a complete and scalable architecture. This decision was made with the approval of our professor, taking into account the constraints of working in a smaller group. The primary objective is to deliver a well-architected and functional subset of the system.
+
+---
+
+## **Architecture diagram**
+![alt text](diagrams/SSA_Project_-_Architecture_diagram.whiteVersion.png)
+
+---
 
 ## **1. How to Run the Project**
 
@@ -14,10 +26,9 @@ Welcome to the **Real Estate Fractional Ownership System** project! This system 
 
 ### **1.2 Steps to Run**
 
-1. **Clone the Repository**:
-
+1. **First steps**:\
+  After unzipping the folder you must enter the main folder
    ```bash
-   git clone https://github.com/JulesDavoust/SSA-Project.git
    cd SSA-PROJECT/ssa-application
    ```
 
@@ -58,8 +69,8 @@ Welcome to the **Real Estate Fractional Ownership System** project! This system 
      - **Password**: (leave empty).
 
 4. **Test Endpoints**:
-   - Use the provided Postman collection to test all endpoints.
-   - Ensure proper IDs (wallets) are retrieved from the H2 database before testing specific endpoints. And ensure you to replace all the {wallet id}, {property id} and {investment id} by a real id.
+   - Use the provided [Postman collection](/SSA%20-%20Project%20services.postman_collection.json) to test all endpoints.
+   - Ensure proper IDs (wallets) are retrieved from the H2 database before testing specific endpoints. And ensure you to replace all the {wallet id}, {property id} and {User UUID} by a real id.
 
 ---
 
@@ -130,7 +141,7 @@ The Wallet service is responsible for managing user wallets, enabling credits, d
 
 #### **Specific Details**
 
-- Wallet IDs are used to uniquely identify each wallet. Moreover you have to retrieve it in the H2 database.
+- Wallet IDs are used to uniquely identify each wallet. Moreover you have to retrieve it in the H2 database (doing a `select * from wallet`).
 - Uses the H2 database for data persistence. Wallets can be queried directly via H2 for inspection or debugging.
 
 ---
@@ -237,7 +248,7 @@ This system is designed to:
 
 To verify that all services work as intended:
 
-1. Use the provided Postman collection to test endpoints.
+1. Use the provided [Postman collection](/SSA%20-%20Project%20services.postman_collection.json) to test endpoints.
 2. Observe console logs for notifications.
 3. Query the H2 database to ensure data consistency.
 

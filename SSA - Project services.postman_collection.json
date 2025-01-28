@@ -1,0 +1,423 @@
+{
+	"info": {
+		"_postman_id": "dbb818cc-2e52-4b27-85ac-257acc113cb3",
+		"name": "SSA - Project services",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23769993",
+		"_collection_link": "https://les-dev-gods.postman.co/workspace/SSA-Project---S9~36c5ce42-9c92-44e9-b228-9c21f8848d5a/collection/29870502-dbb818cc-2e52-4b27-85ac-257acc113cb3?action=share&source=collection_link&creator=23769993"
+	},
+	"item": [
+		{
+			"name": "PropertyService",
+			"item": [
+				{
+					"name": "all properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "open properties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/open",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"open"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/{property id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"{property id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Luxury Apartment\",\r\n    \"type\": \"Apartment\",\r\n    \"price\": 1650000.0,\r\n    \"fundingDeadline\": \"2025-03-26\",\r\n    \"fundingStatus\": \"OPEN\",\r\n    \"rentalIncomePercentage\": 6.0,\r\n    \"appreciationPercentage\": 3.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/properties/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property by id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Luxury Apartment\",\r\n    \"type\": \"Apartment\",\r\n    \"price\": 1660000.0,\r\n    \"fundingDeadline\": \"2025-03-26\",\r\n    \"fundingStatus\": \"OPEN\",\r\n    \"rentalIncomePercentage\": 6.0,\r\n    \"appreciationPercentage\": 3.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/properties/update/{property id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"update",
+								"{property id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "property by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/delete/{property id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"delete",
+								"{property id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calcul rental income property",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/{property id}/rental-income",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"{property id}",
+								"rental-income"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "calcul appreciation property",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/{property id}/appreciation",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"{property id}",
+								"appreciation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transition state property",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/properties/{property id}/transition-state?fundedAmount=150000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"properties",
+								"{property id}",
+								"transition-state"
+							],
+							"query": [
+								{
+									"key": "fundedAmount",
+									"value": "150000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "WalletService",
+			"item": [
+				{
+					"name": "wallet by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/wallets/{wallet id}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"wallets",
+								"{wallet id}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all wallets",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/wallets/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"wallets",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "credit wallet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/wallets/{wallet id}/credit?amount=5000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"wallets",
+								"{wallet id}",
+								"credit"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "5000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "debit wallet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/wallets/{wallet id}debit?amount=2000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"wallets",
+								"{wallet id}debit"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "2000"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "InvestmentService",
+			"item": [
+				{
+					"name": "Get all Investments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/investments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"investments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all investments of a User",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/investments/{user UUID}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"investments",
+								"{user UUID}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Validate investment limits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/investments/allocatable/{User UUID}?amount={amount}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"investments",
+								"allocatable",
+								"{User UUID}"
+							],
+							"query": [
+								{
+									"key": "amount",
+									"value": "{amount}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Allocate investment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user\": \"86b0529c-3071-4c8b-a01b-c3b3a1934650\",\r\n    \"property\": \"0e79848a-da72-4c82-86c4-52285f26316d\",\r\n    \"amount\": 5000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8082/investments/allocate",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"investments",
+								"allocate"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
