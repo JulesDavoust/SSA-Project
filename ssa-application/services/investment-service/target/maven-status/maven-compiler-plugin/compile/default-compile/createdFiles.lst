@@ -1,1 +1,13 @@
 com\project\ssaapplication\InvestmentServiceApplication.class
+com\project\ssaapplication\validations\InvestmentValidation.class
+com\project\ssaapplication\services\WalletServiceClient.class
+com\project\ssaapplication\models\Wallet.class
+com\project\ssaapplication\services\InvestmentService.class
+com\project\ssaapplication\repositories\InvestmentRepository.class
+com\project\ssaapplication\validations\DefaultInvestmentValidation.class
+com\project\ssaapplication\controller\InvestmentController.class
+com\project\ssaapplication\DataLoader.class
+com\project\ssaapplication\models\Property.class
+com\project\ssaapplication\models\InvestmentRequest.class
+com\project\ssaapplication\models\Investment.class
+com\project\ssaapplication\services\PropertyServiceClient.class
