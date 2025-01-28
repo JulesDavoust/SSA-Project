@@ -5,7 +5,7 @@ Welcome to the **Real Estate Fractional Ownership System** project! This system 
 ---
 ## **Introduction**:
 
-This project was developed by a team of two students, Vadim Bernard and Jules Davoust. Due to the reduced team size, the implementation focuses on showcasing architectural choices and deeply implementing four core services: Wallet, Property, Notification, and Investment. These services were selected to highlight the essential functionality of the system while adhering to the project's scope and requirements.
+This project was developed by a team of two students, Vadim Bernard and Jules Davoust. Due to the reduced team size, and after teacher's authorisation, the implementation focuses on showcasing architectural choices and deeply implementing four core services: Wallet, Property, Notification, and Investment. These services were selected to highlight the essential functionality of the system while adhering to the project's scope and requirements.
 
 The remaining microservices mentioned in the architecture diagram are not implemented but are included in the design to illustrate a complete and scalable architecture. This decision was made with the approval of our professor, taking into account the constraints of working in a smaller group. The primary objective is to deliver a well-architected and functional subset of the system.
 

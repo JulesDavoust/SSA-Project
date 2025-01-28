@@ -417,7 +417,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "All the Wallet UUID in the API's URI should in fact be the **User**'s UUID. But since the User Service isn't implemented yet we just use the Wallet's one for test purposes."
 		}
 	]
 }
