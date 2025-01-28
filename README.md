@@ -193,6 +193,40 @@ The Notification service ensures users are informed about key events within the 
 - Can be extended to integrate real email services (e.g., SendGrid or SMTP).
 
 ---
+
+### **3.4 Investment Service**
+
+The Investment service allow to manage all the investments and in validity of those.
+
+#### **Purpose and Functionality**
+
+- **Core Purpose**: Allow to retreive a list of investments and allocate some.
+- **Key Features**:
+  - **Investment Retreival**
+    - Retreive all the investments
+    - Retreive the investment by user
+  - **Investment Allocation**
+    - Invest on some properties
+    - Verify the investment on a property is possible
+    - Verify that the ser can invest this year
+
+#### **Connections to Other Services**
+- **Implemented Services**:
+  - **Property Service**:
+    - Retreive a properties by Id
+    - Retreive all the properties
+  - **Wallet Service**:
+    - Retreive a wallet by Id
+    - Retreive all the wallets
+    - Update wallet amount
+
+#### **Specific Details**
+
+- Some of the validation operations would have been done by some other services but that are not implemented yet.
+- The investments don't save the properties data that they refers to, only the property UUID.
+
+---
+
 ### **4. Purpose and Verification**
 
 This system is designed to:
