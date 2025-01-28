@@ -27,7 +27,7 @@ public class DefaultPropertyStateTransition implements PropertyStateTransition {
             incomeNotificationService.sendNotification("investor@example.com", "Property Fully Funded", "The property has been fully funded and is now active.");
             return "FUNDED";
         } else if (fundingExpired) {
-            incomeNotificationService.sendNotification("investor@example.com", "Property Fully Expired", "he property funding has expired, and your funds will be refunded.");
+            incomeNotificationService.sendNotification("investor@example.com", "Property Fully Expired", "The property funding has expired, and your funds will be refunded.");
             return "EXPIRED";
         }
         return currentState;

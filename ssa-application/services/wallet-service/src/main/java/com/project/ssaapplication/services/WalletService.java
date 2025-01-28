@@ -1,6 +1,5 @@
 package com.project.ssaapplication.services;
 
-import com.project.ssaapplication.channels.NotificationChannel;
 import com.project.ssaapplication.models.Wallet;
 import com.project.ssaapplication.repositories.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
