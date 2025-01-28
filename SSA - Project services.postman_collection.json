@@ -347,7 +347,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/investments/{user UUID}",
+							"raw": "http://localhost:8082/investments/{wallet UUID}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -355,7 +355,7 @@
 							"port": "8082",
 							"path": [
 								"investments",
-								"{user UUID}"
+								"{wallet UUID}"
 							]
 						}
 					},
@@ -367,7 +367,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/investments/allocatable/{User UUID}?amount={amount}",
+							"raw": "http://localhost:8082/investments/allocatable/{walletUUID}?amount={amount}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -376,7 +376,7 @@
 							"path": [
 								"investments",
 								"allocatable",
-								"{User UUID}"
+								"{walletUUID}"
 							],
 							"query": [
 								{

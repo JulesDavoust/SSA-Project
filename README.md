@@ -70,7 +70,7 @@ The remaining microservices mentioned in the architecture diagram are not implem
 
 4. **Test Endpoints**:
    - Use the provided [Postman collection](/SSA%20-%20Project%20services.postman_collection.json) to test all endpoints.
-   - Ensure proper IDs (wallets) are retrieved from the H2 database before testing specific endpoints. And ensure you to replace all the {wallet id}, {property id} and {User UUID} by a real id.
+   - Ensure proper IDs (wallets) are retrieved from the H2 database before testing specific endpoints. And ensure you to replace all the {wallet id} (you can get it with the H2 database), {property id} (you can get it with the endpoint "http://localhost:8080/properties/all") and {wallet UUID} (it's the same as for wallet id, you have to retrieve it thank to the H2 wallet database) by a real id.
 
 ---
 
@@ -141,7 +141,7 @@ The Wallet service is responsible for managing user wallets, enabling credits, d
 
 #### **Specific Details**
 
-- Wallet IDs are used to uniquely identify each wallet. Moreover you have to retrieve it in the H2 database (doing a `select * from wallet`).
+- Wallet IDs are used to uniquely identify each wallet. Moreover you have to retrieve it in the H2 wallet database (doing a `select * from wallet`).
 - Uses the H2 database for data persistence. Wallets can be queried directly via H2 for inspection or debugging.
 
 ---
@@ -234,7 +234,7 @@ The Investment service allow to manage all the investments and in validity of th
 #### **Specific Details**
 
 - Some of the validation operations would have been done by some other services but that are not implemented yet.
-- The investments don't save the properties data that they refers to, only the property UUID.
+- The investments don't save the properties data that they refers to, only the property UUID. And you have also to retrieve the wallet UUID in the H2 wallet database (doing a `select * from wallet`).
 
 ---
 
